@@ -15,12 +15,14 @@ import AddCourse from "./pages/educator/AddCourse";
 import MyCourses from "./pages/educator/MyCourses";
 
 // Other Pages
-import Loading from "./components/Loading";
+import Loading from "./components/student/Loading";
+import Navbar from "./components/student/Navbar";
 import StudentsEnrolled from "./pages/educator/StudentsEnrolled";
 
 const App = () => {
   return (
-    <div>
+    <div className="text-default min-h-screen bg-white">
+      <Navbar />
       <Routes>
         {/* Student Routes */}
         <Route path="/" element={<Home />} />
