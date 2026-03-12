@@ -13,13 +13,23 @@ const Navbar = () => {
         alt="logo"
         className="w-28 lg:w-32 cursor-pointer"
       />
-      <div>
+      <div className="flex-items-center gap-5">
         <button>Become Educator</button>
         <Link to="/my-enrollments">My Enrollments</Link>
       </div>
       <button className="bg-primary text-white px-5 py-2 rounded-full">
         Create Account
       </button>
+      {/* for phone Screens */}
+      <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
+        <div>
+          <button>Become Educator</button>
+          <Link to="/my-enrollments">My Enrollments</Link>
+        </div>
+        <button>
+          <img src={assets.user_icon} alt="" className="" />
+        </button>
+      </div>
     </div>
   );
 };
