@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const AppContext = createdContext();
+export const AppContext = createContext(); // ← was "createdContext"
 
 export const AppContextProvider = (props) => {
   const value = {};
