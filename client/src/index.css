@@ -3,23 +3,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-bg: #f9fafb;
-  --color-primary: #4f46e5;
-  --color-primary-hover: #4338ca;
-  --color-accent: #f59e0b;
-  --color-accent-hover: #d97706;
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-  --color-white: #ffffff;
-  --color-border: #e5e7eb;
-  --color-card: #ffffff;
-  --color-success: #10b981;
-  --color-error: #ef4444;
-
-  /* Fonts */
   --font-outfit: "Outfit", sans-serif;
-  --font-inter: "Inter", sans-serif;
+
+  --text-home-heading-small: 28px;
+  --text-home-heading-small--line-height: 36px;
+
+  --text-home-heading-large: 48px;
+  --text-home-heading-large--line-height: 56px;
+
+  --text-course-details-heading-small: 26px;
+  --text-course-details-heading-small--line-height: 36px;
+
+  --text-course-details-heading-large: 36px;
+  --text-course-details-heading-large--line-height: 44px;
+
+  --text-defult: 16px;
+  --text-defult--line-height: 22px;
 }
 
 * {
