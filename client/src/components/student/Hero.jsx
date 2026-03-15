@@ -15,7 +15,7 @@ const Hero = () => {
         <img
           src={assets.sketch}
           alt="sketch"
-          className="md:block hidden absolute-bottom-7 right-0"
+          className="md:block hidden absolute -bottom-7 right-0"
         />
       </h1>
 
@@ -28,8 +28,10 @@ const Hero = () => {
         Expert-led courses and practical projects to help you grow with
         confidence.
       </p>
+
       <SearchBar />
     </div>
   );
 };
+
 export default Hero;
