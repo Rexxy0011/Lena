@@ -2,8 +2,10 @@ import React from "react";
 import { assets } from "../../assets/assets";
 import { Link, useLocation } from "react-router-dom";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { AppContext } from "../../context/AppContex";
 
 const Navbar = () => {
+  const { navigate } = useContext(AppContext);
   const location = useLocation();
   const isCourseListPage = location.pathname.includes("/course-list");
 

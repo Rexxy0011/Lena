@@ -19,6 +19,8 @@
 
   --text-defult: 16px;
   --text-defult--line-height: 22px;
+
+  --grid-cols-auto: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 * {
