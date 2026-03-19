@@ -105,28 +105,36 @@ export const dummyEducatorData = {
 
 export const dummyTestimonial = [
   {
-    name: "Donald Jackman",
-    role: "SWE 1 @ Amazon",
+    name: "Clare kott",
+    role: "product Manager @ Passy",
     image: assets.profile_img_1,
     rating: 5,
     feedback:
-      "I've been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
+      "I’ve been using this platform consistently, and the learning experience is well-structured and easy to follow. The course flow, resources, and progress tracking make it simple to stay on track and improve quickly.",
   },
   {
-    name: "Richard Nelson",
-    role: "SWE 2 @ Samsung",
+    name: "maica joh",
+    role: "Software Engineer @ Apple",
     image: assets.profile_img_2,
     rating: 4,
     feedback:
-      "I've been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
+      "The lessons are clear and practical, with real-world examples that make concepts stick. I also like how the platform keeps everything organized—content, notes, and learning milestones in one place.",
   },
   {
-    name: "James Washington",
-    role: "SWE 2 @ Google",
+    name: "Tunde moh",
+    role: "Ai Engineer @ Google",
     image: assets.profile_img_3,
     rating: 4.5,
     feedback:
-      "I've been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
+      "The course quality is strong and the learning paths feel intentional. It’s a solid option if you want guided structure without losing flexibility to learn at your own pace.",
+  },
+  {
+    name: "Oma bree",
+    role: "Product Designer @ PayPal",
+    image: assets.profile_img_1,
+    rating: 5,
+    feedback:
+      "The platform balances depth with simplicity. I was able to learn efficiently, practice with hands-on tasks, and clearly see my progress—exactly what I need from a modern learning experience.",
   },
 ];
 
