@@ -9,6 +9,7 @@ export const AppContextProvider = (props) => {
   const navigate = useNavigate();
 
   const [allCourses, setAllCourses] = useState([]);
+  const [isEducator, setIsEducator] = useState(true);
 
   const fetchAllCourses = async () => {
     setAllCourses(dummyCourses);
@@ -39,6 +40,8 @@ export const AppContextProvider = (props) => {
     setAllCourses,
     navigate,
     calculateRating,
+    isEducator,
+    setIsEducator,
   };
 
   return (

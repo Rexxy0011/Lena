@@ -5,7 +5,7 @@ import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { AppContext } from "../../context/AppContex";
 
 const Navbar = () => {
-  const { navigate } = useContext(AppContext);
+  const { navigate, isEducator } = useContext(AppContext);
   const location = useLocation();
   const isCourseListPage = location.pathname.includes("/course-list");
 
@@ -33,8 +33,13 @@ const Navbar = () => {
         {/* Desktop Links (right beside profile) */}
         {user && (
           <div className="hidden md:flex items-center gap-3">
-            <button className="text-gray-600 hover:text-gray-900">
-              Become Educator
+            <button
+              onClick={() => {
+                navigate("/educator");
+              }}
+            >
+              {" "}
+              {isEducator ? "Educator Dashboard" : "Become Educator"}
             </button>
 
             <span className="h-4 w-px bg-gray-300" />
@@ -72,7 +77,14 @@ const Navbar = () => {
       {/* Mobile (optional links beside profile/icon) */}
       {user && (
         <div className="md:hidden flex items-center gap-2 text-gray-500">
-          <button className="hover:text-gray-900">Educator</button>
+          <button
+            onClick={() => {
+              navigate("/educator");
+            }}
+          >
+            {" "}
+            {isEducator ? "Educator Dashboard" : "Become Educator"}
+          </button>
           <span className="h-4 w-px bg-gray-300" />
           <Link to="/my-enrollments" className="hover:text-gray-900">
             Enrollments
