@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../../assets/assets";
 import { Link, useLocation } from "react-router-dom";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
@@ -20,7 +20,12 @@ const Navbar = () => {
     >
       {/* Logo */}
       <Link to="/" className="shrink-0">
-        <img src={assets.logo} alt="logo" className="w-28 lg:w-32" />
+        <img
+          onClick={() => navigate("/")}
+          src={assets.logo}
+          alt="logo"
+          className="w-28 lg:w-32"
+        />
       </Link>
 
       {/* Right Side (links + profile aligned together) */}

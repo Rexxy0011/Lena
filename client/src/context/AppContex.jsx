@@ -14,6 +14,21 @@ export const AppContextProvider = (props) => {
     setAllCourses(dummyCourses);
   };
 
+  // function to calculate average rating of course
+
+  const calculateRating = (course) => {
+    if (!course?.courseRatings || course.courseRatings.length === 0) {
+      return 0;
+    }
+
+    let totalRating = 0;
+    course.courseRatings.forEach((r) => {
+      totalRating += Number(r.rating || 0);
+    });
+
+    return totalRating / course.courseRatings.length;
+  };
+
   useEffect(() => {
     fetchAllCourses();
   }, []);
@@ -23,6 +38,7 @@ export const AppContextProvider = (props) => {
     allCourses,
     setAllCourses,
     navigate,
+    calculateRating,
   };
 
   return (
