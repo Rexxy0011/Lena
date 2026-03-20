@@ -14,19 +14,19 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex flex-col md:items-start items-center w-full">
-          <h2 className="font-semibold text-white mb-5">Company</h2>
+          <h2 className="font-semibold text-white mb-5">Resources</h2>
           <ul className="flex md:flex-col w-full justify-between text-sm text-white/80 md:space-y-2">
             <li>
-              <a href="#">Home</a>
+              <a href="#">Courses</a>
             </li>
             <li>
-              <a href="#">About us</a>
+              <a href="#">Help Center</a>
             </li>
             <li>
-              <a href="#">Contact us</a>
+              <a href="#">Terms of Service</a>
             </li>
             <li>
-              <a href="#">Privacy policy</a>
+              <a href="#">FAQ</a>
             </li>
           </ul>
         </div>
