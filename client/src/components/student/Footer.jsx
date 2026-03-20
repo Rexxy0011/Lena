@@ -13,6 +13,7 @@ const Footer = () => {
             can track.
           </p>
         </div>
+
         <div className="flex flex-col md:items-start items-center w-full">
           <h2 className="font-semibold text-white mb-5">Resources</h2>
           <ul className="flex md:flex-col w-full justify-between text-sm text-white/80 md:space-y-2">
@@ -30,12 +31,30 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div></div>
+
+        <div className="hidden md:flex flex-col items-start w-full">
+          <h2 className="font-semibold text-white mb-5">Newsletter</h2>
+          <p className="text-sm text-white/80">
+            Get product updates, new courses, and learning tips—no spam.
+          </p>
+          <div className="flex items-center gap-2 pt-4 w-full">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 rounded-md px-3 py-2 outline-none"
+            />
+            <button className="bg-[#4e91fd] text-white rounded-md px-4 py-2">
+              Subscribe
+            </button>
+          </div>
+        </div>
       </div>
+
       <p className="py-4 text-center text-xs md:text-sm text-white/60">
         Copyright 2026 © Lena. All rights reserved.
       </p>
     </footer>
   );
 };
+
 export default Footer;
