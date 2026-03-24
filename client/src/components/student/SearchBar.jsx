@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ data }) => {
+const SearchBar = ({ data, onQueryChange }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState(data ? data : "");
+
+  useEffect(() => {
+    setInput(data ? data : "");
+  }, [data]);
 
   const onSearchHandler = (e) => {
     e.preventDefault();
@@ -23,7 +27,11 @@ const SearchBar = ({ data }) => {
       />
 
       <input
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          const val = e.target.value;
+          setInput(val);
+          onQueryChange?.(val);
+        }}
         value={input}
         type="text"
         placeholder="Search for courses"

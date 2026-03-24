@@ -35,7 +35,7 @@ const Footer = () => {
         <div className="hidden md:flex flex-col items-start w-full">
           <h2 className="font-semibold text-white mb-5">Newsletter</h2>
           <p className="text-sm text-white/80">
-            Get product updates, new courses, and learning tips—no spam.
+            Get product updates, new courses, and learning tips no spam.
           </p>
           <div className="flex items-center gap-2 pt-4 w-full">
             <input
