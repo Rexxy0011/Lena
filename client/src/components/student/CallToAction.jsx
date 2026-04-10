@@ -3,7 +3,7 @@ import { assets } from "../../assets/assets";
 
 const CallToAction = () => {
   return (
-    <div className="pt-10 pb-24 px-8 md:px-0">
+    <div className="py-16 md:py-20 px-8 md:px-0 w-full">
       <div className="max-w-4xl mx-auto relative">
         {/* Offset block shadow */}
         <div className="absolute inset-0 bg-[#ffdc73] rounded-2xl translate-x-[-16px] translate-y-[-16px]" />

@@ -1,5 +1,5 @@
 import { db } from '../config/firebase.js';
-import { isEnrolled } from '../services/firestoreService.js';
+import { isEnrolled, enrollUserInCourse } from '../services/firestoreService.js';
 import admin from '../config/firebase.js';
 
 /**
@@ -39,6 +39,31 @@ export const getMyCourses = async (req, res) => {
     return res.status(200).json({ success: true, courses });
   } catch (err) {
     console.error('getMyCourses error:', err.message);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+/**
+ * POST /api/enrollments/free/:courseId
+ * Allows the course educator to enroll in their own course for free.
+ */
+export const freeEnroll = async (req, res) => {
+  try {
+    const { uid } = req.user;
+    const { courseId } = req.params;
+
+    const courseSnap = await db.collection('courses').doc(courseId).get();
+    if (!courseSnap.exists) {
+      return res.status(404).json({ success: false, message: 'Course not found' });
+    }
+    if (courseSnap.data().educator !== uid) {
+      return res.status(403).json({ success: false, message: 'Only the course educator can use free enrollment' });
+    }
+
+    await enrollUserInCourse(uid, courseId, 'free', 0);
+    return res.status(200).json({ success: true, courseId });
+  } catch (err) {
+    console.error('freeEnroll error:', err.message);
     return res.status(500).json({ success: false, message: 'Server error' });
   }
 };

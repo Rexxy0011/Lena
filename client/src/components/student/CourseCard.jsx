@@ -19,9 +19,7 @@ const CourseCard = ({ course }) => {
         <h3 className="text-base font-semibold">{course.courseTitle}</h3>
         <p className="text-gray-500">Rex</p>
 
-        <div className="flex items-center space-x-2">
-          <p>{rating}</p>
-
+        <div className="flex items-center gap-1">
           <div className="flex">
             {[...Array(5)].map((_, i) => (
               <img
@@ -32,8 +30,7 @@ const CourseCard = ({ course }) => {
               />
             ))}
           </div>
-
-          <p className="text-gray-500">{course.courseRatings?.length ?? 0}</p>
+          <p className="text-gray-500 text-sm">({course.courseRatings?.length ?? 0})</p>
         </div>
 
         <p className="text-base font-semibold text-gray-800">

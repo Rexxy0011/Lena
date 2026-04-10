@@ -4,15 +4,17 @@ import { AppContext } from "../../context/AppContex";
 
 const PaymentCallback = () => {
   const [searchParams] = useSearchParams();
-  const { authFetch, fetchUserEnrolledCourses } = useContext(AppContext);
+  const { authFetch, fetchUserEnrolledCourses, authLoading, user } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [status, setStatus] = useState("verifying"); // "verifying" | "success" | "failed"
 
   useEffect(() => {
-    const reference = searchParams.get("reference");
+    // Wait until Firebase has restored the auth session
+    if (authLoading) return;
 
-    if (!reference) {
+    const reference = searchParams.get("reference");
+    if (!reference || !user) {
       setStatus("failed");
       return;
     }
@@ -25,7 +27,6 @@ const PaymentCallback = () => {
         if (data.success) {
           await fetchUserEnrolledCourses();
           setStatus("success");
-          // Redirect to the course player after 2 seconds
           setTimeout(() => navigate(`/player/${data.courseId}`), 2000);
         } else {
           setStatus("failed");
@@ -36,7 +37,7 @@ const PaymentCallback = () => {
     };
 
     verify();
-  }, []);
+  }, [authLoading, user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

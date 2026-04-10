@@ -23,7 +23,11 @@ export const initializePayment = async (req, res) => {
     if (!courseSnap.exists) {
       return res.status(404).json({ success: false, message: 'Course not found' });
     }
-    const { coursePrice, discount, courseTitle } = courseSnap.data();
+    const { coursePrice, discount, courseTitle, educator } = courseSnap.data();
+
+    if (educator === uid) {
+      return res.status(403).json({ success: false, message: 'You cannot enroll in your own course.' });
+    }
 
     // Get user email
     const userSnap = await db.collection('users').doc(uid).get();

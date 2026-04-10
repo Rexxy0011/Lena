@@ -46,9 +46,13 @@ const CourseDetails = () => {
     setOpenSection((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
+  const isOwnCourse = user && courseData && courseData.educator === user.uid;
+
   const handleEnroll = async () => {
     if (!user) { setShowAuth(true); return; }
+    if (isOwnCourse) { navigate("/educator/my-courses"); return; }
     if (isAlreadyEnrolled) { navigate(`/player/${id}`); return; }
+
     try {
       setEnrolling(true);
       const res = await authFetch("/api/payment/initialize", {
@@ -173,13 +177,11 @@ const CourseDetails = () => {
                             <div className="flex gap-2">
                               {lecture.isPreviewFree && (
                                 <p
-                                  onClick={() =>
-                                    setPlayerData({
-                                      videoId: lecture.lectureUrl
-                                        .split("/")
-                                        .pop(),
-                                    })
-                                  }
+                                  onClick={() => {
+                                    const match = lecture.lectureUrl?.match(/(?:v=|youtu\.be\/|\/embed\/|\/v\/)([^?&]+)/);
+                                    const videoId = match ? match[1] : null;
+                                    if (videoId) setPlayerData({ videoId });
+                                  }}
                                   className="text-[#4e91fd] cursor-pointer"
                                 >
                                   Preview
@@ -278,7 +280,13 @@ const CourseDetails = () => {
               disabled={enrolling}
               className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium disabled:opacity-50"
             >
-              {enrolling ? "Please wait..." : isAlreadyEnrolled ? "Go to Course" : "Enroll Now"}
+              {enrolling
+                ? "Please wait..."
+                : isOwnCourse
+                ? "Manage Course"
+                : isAlreadyEnrolled
+                ? "Go to Course"
+                : "Enroll Now"}
             </button>
             <div className="pt-6">
               <p className="md:text-xl text-lg font-medium text-gray-800">

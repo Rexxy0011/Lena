@@ -3,7 +3,7 @@ import { assets } from "../../assets/assets";
 
 const Companies = () => {
   return (
-    <div className="pt-16">
+    <div className="py-10 w-full text-center">
       <p className="text-base text-gray-500 text-center">
         Trusted by learners from
       </p>

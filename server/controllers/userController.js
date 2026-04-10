@@ -20,6 +20,27 @@ export const syncUser = async (req, res) => {
 };
 
 /**
+ * POST /api/auth/become-educator
+ * Validates access code and upgrades user role to educator.
+ */
+export const becomeEducator = async (req, res) => {
+  try {
+    const { uid } = req.user;
+    const { code } = req.body;
+
+    if (!code || code.trim() !== process.env.EDUCATOR_ACCESS_CODE) {
+      return res.status(403).json({ success: false, message: 'Invalid access code.' });
+    }
+
+    await db.collection('users').doc(uid).update({ isEducator: true });
+    return res.status(200).json({ success: true, message: 'You are now an educator!' });
+  } catch (err) {
+    console.error('becomeEducator error:', err.message);
+    return res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+/**
  * GET /api/auth/me
  * Returns the current authenticated user's Firestore profile.
  */

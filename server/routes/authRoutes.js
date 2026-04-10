@@ -1,13 +1,11 @@
 import { Router } from 'express';
 import protect from '../middleware/auth.js';
-import { syncUser, getMe } from '../controllers/userController.js';
+import { syncUser, getMe, becomeEducator } from '../controllers/userController.js';
 
 const router = Router();
 
-// POST /api/auth/sync — called after every Firebase login to upsert user in Firestore
 router.post('/sync', protect, syncUser);
-
-// GET /api/auth/me — returns authenticated user's Firestore profile
 router.get('/me', protect, getMe);
+router.post('/become-educator', protect, becomeEducator);
 
 export default router;

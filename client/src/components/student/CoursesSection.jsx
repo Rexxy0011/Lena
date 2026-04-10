@@ -6,7 +6,7 @@ import CourseCard from "./CourseCard";
 const CoursesSection = () => {
   const { allCourses } = useContext(AppContext);
   return (
-    <div className="py-16 md:px-40 px-8 text-center">
+    <div className="py-16 md:py-20 md:px-40 px-8 text-center w-full">
       <h2 className="text-3xl font-medium text-gray-800">
         Learn from industry experts
       </h2>
@@ -17,7 +17,7 @@ const CoursesSection = () => {
         course is structured to be practical, clear, and outcome-driven.
       </p>
 
-      <div className="grid [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))] px-4 md:px-0 md:my-16 my-10 gap-4">
+      <div className="grid [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))] px-4 md:px-0 md:my-10 my-8 gap-4">
         {allCourses.slice(0, 4).map((course, index) => (
           <CourseCard key={index} course={course} />
         ))}
@@ -26,7 +26,7 @@ const CoursesSection = () => {
       <Link
         to="/course-list"
         onClick={() => window.scrollTo(0, 0)}
-        className="inline-block mt-6 text-gray-500 border border-gray-500/30 px-10 py-3 rounded"
+        className="inline-block text-gray-500 border border-gray-500/30 px-10 py-3 rounded"
       >
         Show all courses
       </Link>

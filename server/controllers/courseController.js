@@ -61,11 +61,12 @@ export const getCourseById = async (req, res) => {
 
     let courseData = { _id: snap.id, ...snap.data() };
 
-    // Check enrollment if user is authenticated (uid set by optional-auth middleware)
     const uid = req.user?.uid;
-    const enrolled = uid ? await isEnrolled(uid, id) : false;
+    const isCreator = uid && courseData.educator === uid;
+    const enrolled = (!isCreator && uid) ? await isEnrolled(uid, id) : false;
 
-    if (!enrolled) {
+    // Creator always gets full access; enrolled students get full access; others get preview only
+    if (!isCreator && !enrolled) {
       courseData = sanitizeCourseForPublic(courseData);
     }
 

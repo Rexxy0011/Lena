@@ -7,7 +7,7 @@ import { auth } from "../../config/firebase";
 import AuthModal from "./AuthModal";
 
 const Navbar = () => {
-  const { navigate, isEducator, user } = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const [showMenu, setShowMenu] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
 
@@ -22,9 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div
-        className="flex w-full items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-200 py-4 bg-white"
-      >
+      <div className="flex w-full items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-200 py-4 bg-white">
         {/* Logo */}
         <Link to="/" className="shrink-0">
           <img src={assets.logo} alt="logo" className="w-28 lg:w-32" />
@@ -32,34 +30,12 @@ const Navbar = () => {
 
         {/* Right side */}
         <div className="flex items-center gap-3 sm:gap-5">
-
-          {/* Desktop links */}
           {user && (
-            <div className="hidden md:flex items-center gap-3">
-              <button onClick={() => navigate("/educator")}>
-                {isEducator ? "Educator Dashboard" : "Become Educator"}
-              </button>
-              <span className="h-4 w-px bg-gray-300" />
-              <Link to="/my-enrollments" className="text-gray-600 hover:text-gray-900">
-                My Enrollments
-              </Link>
-            </div>
+            <Link to="/my-enrollments" className="hidden md:block text-sm text-gray-600 hover:text-gray-900">
+              My Learning
+            </Link>
           )}
 
-          {/* Mobile links */}
-          {user && (
-            <div className="md:hidden flex items-center gap-2 text-gray-500 text-sm">
-              <button onClick={() => navigate("/educator")}>
-                {isEducator ? "Dashboard" : "Become Educator"}
-              </button>
-              <span className="h-4 w-px bg-gray-300" />
-              <Link to="/my-enrollments" className="hover:text-gray-900">
-                Enrollments
-              </Link>
-            </div>
-          )}
-
-          {/* Auth / Profile */}
           {user ? (
             <div className="relative">
               <img
@@ -69,17 +45,21 @@ const Navbar = () => {
                 onClick={() => setShowMenu((v) => !v)}
               />
               {showMenu && (
-                <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-lg z-50">
+                <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="text-sm font-medium text-gray-800 truncate">{user.displayName || "User"}</p>
+                    <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                  </div>
                   <Link
                     to="/my-enrollments"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     onClick={() => setShowMenu(false)}
                   >
-                    My Enrollments
+                    My Learning
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-50"
                   >
                     Sign Out
                   </button>
@@ -92,7 +72,7 @@ const Navbar = () => {
                 onClick={() => setShowAuth(true)}
                 className="hidden md:inline-flex bg-[#4e91fd] text-white px-5 py-2 rounded-full text-sm"
               >
-                Create Account
+                Sign In
               </button>
               <button onClick={() => setShowAuth(true)} className="md:hidden p-1">
                 <img src={assets.user_icon} alt="user" />
@@ -102,7 +82,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Auth Modal */}
       {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
     </>
   );
