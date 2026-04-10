@@ -1,10 +1,17 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { assets } from "../../assets/assets";
 
 const CallToAction = () => {
   return (
     <div className="py-16 md:py-20 px-8 md:px-0 w-full">
-      <div className="max-w-4xl mx-auto relative">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="max-w-4xl mx-auto relative"
+      >
         {/* Offset block shadow */}
         <div className="absolute inset-0 bg-[#ffdc73] rounded-2xl translate-x-[-16px] translate-y-[-16px]" />
 
@@ -20,16 +27,22 @@ const CallToAction = () => {
           </p>
 
           <div className="flex items-center font-medium gap-6 mt-4">
-            <button className="px-10 py-3 rounded-md text-white bg-[#4e91fd]">
+            <button
+              onClick={() => { window.scrollTo(0, 0); window.location.href = "/course-list"; }}
+              className="px-10 py-3 rounded-md text-white bg-[#4e91fd]"
+            >
               Get started
             </button>
 
-            <button className="flex items-center gap-2">
+            <button
+              onClick={() => { window.scrollTo(0, 0); window.location.href = "/course-list"; }}
+              className="flex items-center gap-2"
+            >
               Learn More <img src={assets.arrow_icon} alt="arrow_icon" />
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
