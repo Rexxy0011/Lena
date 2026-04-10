@@ -13,6 +13,7 @@ export const AppContextProvider = (props) => {
   const navigate = useNavigate();
 
   const [allCourses, setAllCourses] = useState([]);
+  const [coursesLoading, setCoursesLoading] = useState(true);
   const [isEducator, setIsEducator] = useState(false);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [user, setUser] = useState(null);
@@ -92,6 +93,8 @@ export const AppContextProvider = (props) => {
       if (data.success) setAllCourses(data.courses);
     } catch (err) {
       console.error("fetchAllCourses error:", err.message);
+    } finally {
+      setCoursesLoading(false);
     }
   };
 
@@ -148,6 +151,7 @@ export const AppContextProvider = (props) => {
     currency,
     allCourses,
     setAllCourses,
+    coursesLoading,
     navigate,
     calculateRating,
     isEducator,

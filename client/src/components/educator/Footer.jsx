@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 
 const Footer = () => {
   return (
-    <div>
-      <h1>Edu Footer</h1>
+    <footer className="border-t border-gray-200 py-4 px-6 text-center text-xs text-gray-400">
+      © {new Date().getFullYear()} Lena. All rights reserved.
+    </footer>
+  );
+};
 
-    </div>
-  )
-}
-export default Footer
+export default Footer;

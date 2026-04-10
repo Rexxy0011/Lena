@@ -5,6 +5,11 @@
 @theme {
   --font-outfit: "Outfit", sans-serif;
 
+  /* Brand colors */
+  --color-primary: #2563eb;
+  --color-bg: #f0f4ff;
+  --color-border: #e5e7eb;
+
   /* Typography */
   --text-home-heading-small: 28px;
   --text-home-heading-small--line-height: 36px;

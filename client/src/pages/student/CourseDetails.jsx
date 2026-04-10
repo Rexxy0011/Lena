@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContex";
 import Loading from "../../components/student/Loading";
+import AuthModal from "../../components/student/AuthModal";
 import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
 import Footer from "../../components/student/Footer";
@@ -14,6 +15,9 @@ const CourseDetails = () => {
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setPlayerData] = useState(null);
 
+  const [showAuth, setShowAuth] = useState(false);
+  const [enrolling, setEnrolling] = useState(false);
+
   const {
     allCourses,
     calculateRating,
@@ -21,19 +25,47 @@ const CourseDetails = () => {
     currency,
     calculateCourseDuration,
     calculateNoOfLectures,
+    enrolledCourses,
+    user,
+    authFetch,
+    navigate,
   } = useContext(AppContext);
 
-  const fetchCourseData = () => {
-    const findCourse = allCourses?.find((course) => course._id === id);
-    setCourseData(findCourse || null);
-  };
+  useEffect(() => {
+    const found = allCourses?.find((course) => course._id === id);
+    setCourseData(found || null);
+  }, [allCourses, id]);
 
   useEffect(() => {
-    fetchCourseData();
-  }, [allCourses]);
+    if (enrolledCourses && id) {
+      setIsAlreadyEnrolled(enrolledCourses.some((c) => c._id === id));
+    }
+  }, [enrolledCourses, id]);
 
   const toggleSection = (index) => {
     setOpenSection((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
+  const handleEnroll = async () => {
+    if (!user) { setShowAuth(true); return; }
+    if (isAlreadyEnrolled) { navigate(`/player/${id}`); return; }
+    try {
+      setEnrolling(true);
+      const res = await authFetch("/api/payment/initialize", {
+        method: "POST",
+        body: JSON.stringify({ courseId: id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = data.authorizationUrl;
+      } else {
+        alert(data.message || "Could not start payment.");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      setEnrolling(false);
+    }
   };
 
   const rating = courseData ? calculateRating(courseData) : 0;
@@ -241,8 +273,12 @@ const CourseDetails = () => {
                 <p>{calculateNoOfLectures(courseData)} lessons</p>
               </div>
             </div>
-            <button className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium">
-              {isAlreadyEnrolled ? "Already Enrolled" : "Enroll Now"}
+            <button
+              onClick={handleEnroll}
+              disabled={enrolling}
+              className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium disabled:opacity-50"
+            >
+              {enrolling ? "Please wait..." : isAlreadyEnrolled ? "Go to Course" : "Enroll Now"}
             </button>
             <div className="pt-6">
               <p className="md:text-xl text-lg font-medium text-gray-800">
@@ -260,6 +296,7 @@ const CourseDetails = () => {
         </div>
       </div>
       <Footer />
+      {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
     </>
   ) : (
     <Loading />

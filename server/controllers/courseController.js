@@ -13,13 +13,19 @@ export const getAllCourses = async (req, res) => {
   try {
     const { category, search } = req.query;
 
-    let query = db.collection('courses').where('isPublished', '==', true);
+    const snap = await db.collection('courses').where('isPublished', '==', true).get();
+    let courses = snap.docs.map((d) => ({ _id: d.id, ...d.data() }));
+
     if (category) {
-      query = query.where('category', '==', category);
+      courses = courses.filter((c) => c.category === category);
     }
 
-    const snap = await query.orderBy('createdAt', 'desc').get();
-    let courses = snap.docs.map((d) => ({ _id: d.id, ...d.data() }));
+    // Sort newest first in JS to avoid needing a composite Firestore index
+    courses.sort((a, b) => {
+      const aTime = a.createdAt?._seconds ?? 0;
+      const bTime = b.createdAt?._seconds ?? 0;
+      return bTime - aTime;
+    });
 
     // Client-side search filter (Firestore doesn't support full-text search natively)
     if (search) {

@@ -7,25 +7,59 @@ import YouTube from "react-youtube";
 import Footer from "../../components/student/Footer";
 
 const Player = () => {
-  const { enrolledCourses, calculateChapterTime } = useContext(AppContext);
+  const { enrolledCourses, calculateChapterTime, authFetch } = useContext(AppContext);
   const { courseid } = useParams();
 
   const [courseData, setCourseData] = useState(null);
   const [openSection, setOpenSection] = useState({});
   const [playerData, setPlayerData] = useState(null);
+  const [completedLectures, setCompletedLectures] = useState([]);
+  const [marking, setMarking] = useState(false);
 
-  const getCourseData = () => {
+  useEffect(() => {
     const found = enrolledCourses?.find((course) => course._id === courseid);
     setCourseData(found || null);
-  };
+  }, [enrolledCourses, courseid]);
+
+  // Load progress when course is ready
+  useEffect(() => {
+    if (!courseid) return;
+    const loadProgress = async () => {
+      try {
+        const res = await authFetch(`/api/progress/${courseid}`);
+        const data = await res.json();
+        if (data.success) setCompletedLectures(data.progress?.completedLectures || []);
+      } catch (err) {
+        console.error("Load progress error:", err.message);
+      }
+    };
+    loadProgress();
+  }, [courseid]);
 
   const toggleSection = (index) => {
     setOpenSection((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
-  useEffect(() => {
-    getCourseData();
-  }, [enrolledCourses, courseid]);
+  const handleMarkCompleted = async () => {
+    if (!playerData?.lectureId || marking) return;
+    setMarking(true);
+    try {
+      const res = await authFetch("/api/progress/update", {
+        method: "POST",
+        body: JSON.stringify({ courseId: courseid, lectureId: playerData.lectureId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCompletedLectures(data.completedLectures || []);
+      }
+    } catch (err) {
+      console.error("Mark completed error:", err.message);
+    } finally {
+      setMarking(false);
+    }
+  };
+
+  const isCompleted = (lectureId) => completedLectures.includes(lectureId);
 
   return (
     <>
@@ -54,11 +88,11 @@ const Player = () => {
                         alt=""
                       />
                       <p className="font-medium md:text-base text-sm">
-                        {chapter.chapterTitle || chapter.ChapterTitle}
+                        {chapter.chapterTitle}
                       </p>
                     </div>
 
-                    <p className="text-sm md:text-defult">
+                    <p className="text-sm md:text-default">
                       {chapter.chapterContent.length} lectures -{" "}
                       {calculateChapterTime(chapter)}
                     </p>
@@ -74,13 +108,15 @@ const Player = () => {
                         <li key={i} className="flex items-start gap-2 py-1">
                           <img
                             src={
-                              false ? assets.blue_tick_icon : assets.play_icon
+                              isCompleted(lecture.lectureId)
+                                ? assets.blue_tick_icon
+                                : assets.play_icon
                             }
                             alt=""
                             className="w-4 h-4 mt-1"
                           />
 
-                          <div className="flex items-center justify-between w-full text-gray-800 text-xs md:text-defult">
+                          <div className="flex items-center justify-between w-full text-gray-800 text-xs md:text-default">
                             <p>{lecture.lectureTitle}</p>
 
                             <div className="flex gap-2">
@@ -115,7 +151,7 @@ const Player = () => {
               ))}
           </div>
           <div className="flex items-center gap-2 py-3 mt-10">
-            <h className="text-xl font-bold">Rate this Course</h>
+            <h2 className="text-xl font-bold">Rate this Course</h2>
           </div>
         </div>
 
@@ -132,8 +168,20 @@ const Player = () => {
                   {playerData.chapter}.{playerData.lecture}{" "}
                   {playerData.lectureTitle}
                 </p>
-                <button className="text-blue-600">
-                  {false ? "Completed" : "Mark Completed"}
+                <button
+                  onClick={handleMarkCompleted}
+                  disabled={marking || isCompleted(playerData.lectureId)}
+                  className={`text-sm px-3 py-1 rounded ${
+                    isCompleted(playerData.lectureId)
+                      ? "text-green-600 font-medium"
+                      : "text-blue-600 hover:underline"
+                  } disabled:opacity-50`}
+                >
+                  {isCompleted(playerData.lectureId)
+                    ? "Completed"
+                    : marking
+                    ? "Saving..."
+                    : "Mark Completed"}
                 </button>
               </div>
             </div>

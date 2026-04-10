@@ -7,7 +7,7 @@ import { assets } from "../../assets/assets";
 import Footer from "../../components/student/Footer";
 
 const CourseList = () => {
-  const { navigate, allCourses } = useContext(AppContext);
+  const { navigate, allCourses, coursesLoading } = useContext(AppContext);
   const { input } = useParams();
   const [filteredCourse, setFilteredCourse] = useState([]);
   const [query, setQuery] = useState(input ? input : "");
@@ -68,9 +68,15 @@ const CourseList = () => {
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-16 gap-3 px-2 md:px-0">
-          {filteredCourse.map((course, index) => (
-            <CourseCard key={index} course={course} />
-          ))}
+          {coursesLoading ? (
+            <p className="col-span-4 text-center text-gray-400 py-20">Loading courses...</p>
+          ) : filteredCourse.length === 0 ? (
+            <p className="col-span-4 text-center text-gray-400 py-20">No courses found.</p>
+          ) : (
+            filteredCourse.map((course, index) => (
+              <CourseCard key={index} course={course} />
+            ))
+          )}
         </div>
       </div>
       <Footer />

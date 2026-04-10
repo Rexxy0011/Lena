@@ -33,7 +33,7 @@ const CourseCard = ({ course }) => {
             ))}
           </div>
 
-          <p className="text-gray-500">{course.courseRatings.length}</p>
+          <p className="text-gray-500">{course.courseRatings?.length ?? 0}</p>
         </div>
 
         <p className="text-base font-semibold text-gray-800">

@@ -18,6 +18,7 @@ import MyCourses from "./pages/educator/MyCourses";
 import Loading from "./components/student/Loading";
 import Navbar from "./components/student/Navbar";
 import StudentsEnrolled from "./pages/educator/StudentsEnrolled";
+import PaymentCallback from "./pages/student/PaymentCallback";
 
 const App = () => {
   const isEducatorRoute = useMatch("/educator/*");
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/my-enrollments" element={<MyEnrollment />} />
           <Route path="/player/:courseid" element={<Player />} />
           <Route path="/loading" element={<Loading />} />
+          <Route path="/payment/callback" element={<PaymentCallback />} />
 
           {/* Educator Routes */}
           <Route path="/educator" element={<Educator />}>
