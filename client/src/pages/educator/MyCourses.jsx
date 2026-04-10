@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContex";
 
 const MyCourses = () => {
-  const { authFetch, currency, navigate } = useContext(AppContext);
+  const { authFetch, formatPrice, navigate } = useContext(AppContext);
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -95,8 +95,7 @@ const MyCourses = () => {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-gray-600 hidden sm:table-cell">
-                    {currency}
-                    {(course.coursePrice - (course.discount * course.coursePrice) / 100).toFixed(2)}
+                    {formatPrice(course.coursePrice - (course.discount * course.coursePrice) / 100)}
                   </td>
                   <td className="px-4 py-3 text-gray-600 hidden sm:table-cell">
                     {course.enrolledStudents?.length ?? 0}
@@ -106,11 +105,11 @@ const MyCourses = () => {
                       onClick={() => togglePublish(course._id, course.isPublished)}
                       className={`text-xs px-3 py-1 rounded-full font-medium ${
                         course.isPublished
-                          ? "bg-green-100 text-green-700"
-                          : "bg-gray-100 text-gray-500"
-                      }`}
+                          ? "bg-green-100 text-green-700 hover:bg-red-100 hover:text-red-600"
+                          : "bg-gray-100 text-gray-500 hover:bg-green-100 hover:text-green-700"
+                      } transition-colors`}
                     >
-                      {course.isPublished ? "Published" : "Draft"}
+                      {course.isPublished ? "Unpublish" : "Publish"}
                     </button>
                   </td>
                 </tr>

@@ -147,8 +147,13 @@ export const AppContextProvider = (props) => {
     return total;
   };
 
+  const formatPrice = (amount) => {
+    return `${currency}${Number(amount).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
+
   const value = {
     currency,
+    formatPrice,
     allCourses,
     setAllCourses,
     coursesLoading,

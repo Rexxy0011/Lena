@@ -22,7 +22,7 @@ const CourseDetails = () => {
     allCourses,
     calculateRating,
     calculateChapterTime,
-    currency,
+    formatPrice,
     calculateCourseDuration,
     calculateNoOfLectures,
     enrolledCourses,
@@ -245,15 +245,10 @@ const CourseDetails = () => {
                 alt="time left clock icon"
               />
               <p className="text-gray-800 md:text-4xl text-2xl font-semibold">
-                {currency}
-                {(
-                  courseData.coursePrice -
-                  (courseData.discount * courseData.coursePrice) / 100
-                ).toFixed(2)}
+                {formatPrice(courseData.coursePrice - (courseData.discount * courseData.coursePrice) / 100)}
               </p>
               <p className="md:text-lg text-gray-500 line-through">
-                {currency}
-                {courseData.coursePrice}
+                {formatPrice(courseData.coursePrice)}
               </p>
               <p className="md:text-lg text-gray-500">
                 {courseData.discount}% off

@@ -4,7 +4,7 @@ import { AppContext } from "../../context/AppContex";
 import { Link } from "react-router-dom";
 
 const CourseCard = ({ course }) => {
-  const { currency, calculateRating } = useContext(AppContext);
+  const { formatPrice, calculateRating } = useContext(AppContext);
   const rating = calculateRating(course);
 
   return (
@@ -34,11 +34,7 @@ const CourseCard = ({ course }) => {
         </div>
 
         <p className="text-base font-semibold text-gray-800">
-          {currency}
-          {(
-            course.coursePrice -
-            (course.discount * course.coursePrice) / 100
-          ).toFixed(2)}
+          {formatPrice(course.coursePrice - (course.discount * course.coursePrice) / 100)}
         </p>
       </div>
     </Link>

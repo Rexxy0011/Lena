@@ -18,7 +18,7 @@ const EducatorGate = () => {
     try {
       const res = await authFetch("/api/auth/become-educator", {
         method: "POST",
-        body: JSON.stringify({ code: code.trim() }),
+        body: JSON.stringify({ code: code.trim().toUpperCase() }),
       });
       const data = await res.json();
       if (data.success) {

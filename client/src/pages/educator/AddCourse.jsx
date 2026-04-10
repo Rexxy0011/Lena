@@ -77,7 +77,7 @@ const Input = (props) => (
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 const AddCourse = () => {
-  const { authFetch, navigate } = useContext(AppContext);
+  const { authFetch, navigate, formatPrice } = useContext(AppContext);
 
   const [step, setStep] = useState(0);
 
@@ -268,7 +268,7 @@ const AddCourse = () => {
       {step === 1 && (
         <div className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Price (€)">
+            <Field label="Price (₦)">
               <Input
                 type="number" min="0" step="0.01"
                 value={coursePrice}
@@ -398,8 +398,8 @@ const AddCourse = () => {
 
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: "Price", value: `€${parseFloat(coursePrice || 0).toFixed(2)}` },
-                  { label: "After discount", value: discount > 0 ? `€${discountedPrice}` : "—" },
+                  { label: "Price", value: formatPrice(parseFloat(coursePrice || 0)) },
+                  { label: "After discount", value: discount > 0 ? formatPrice(discountedPrice) : "—" },
                   { label: "Discount", value: discount > 0 ? `${discount}%` : "None" },
                 ].map(({ label, value }) => (
                   <div key={label} className="bg-gray-50 rounded-xl p-3 text-center">

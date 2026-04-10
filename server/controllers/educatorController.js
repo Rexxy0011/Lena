@@ -82,10 +82,11 @@ export const getEducatorCourses = async (req, res) => {
 
     const snap = await db.collection('courses')
       .where('educator', '==', uid)
-      .orderBy('createdAt', 'desc')
       .get();
 
-    const courses = snap.docs.map((d) => ({ _id: d.id, ...d.data() }));
+    const courses = snap.docs
+      .map((d) => ({ _id: d.id, ...d.data() }))
+      .sort((a, b) => (b.createdAt?._seconds || 0) - (a.createdAt?._seconds || 0));
     return res.status(200).json({ success: true, courses });
   } catch (err) {
     console.error('getEducatorCourses error:', err.message);

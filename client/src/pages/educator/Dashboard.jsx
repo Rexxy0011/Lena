@@ -3,7 +3,7 @@ import { AppContext } from "../../context/AppContex";
 import { assets } from "../../assets/assets";
 
 const Dashboard = () => {
-  const { authFetch, currency } = useContext(AppContext);
+  const { authFetch, formatPrice } = useContext(AppContext);
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,7 +43,7 @@ const Dashboard = () => {
           <div>
             <p className="text-sm text-gray-500">Total Earnings</p>
             <p className="text-xl font-bold text-gray-800">
-              {currency}{dashboard?.totalEarnings?.toFixed(2) ?? "0.00"}
+              {formatPrice(dashboard?.totalEarnings ?? 0)}
             </p>
           </div>
         </div>
