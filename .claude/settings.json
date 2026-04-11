@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npx vercel:*)",
-      "Bash(node updatePrices.js)"
+      "Bash(node updatePrices.js)",
+      "Bash(curl -s https://lena-server.vercel.app/api/courses)"
     ]
   }
 }

@@ -16,8 +16,11 @@ const app = express();
 // Security headers
 app.use(helmet());
 
-// CORS — only allow requests from the frontend
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+// CORS — allow requests from frontend (production + local dev)
+app.use(cors({
+  origin: [process.env.FRONTEND_URL, 'http://localhost:5173'].filter(Boolean),
+  credentials: true,
+}));
 
 // Logging
 app.use(morgan('dev'));
