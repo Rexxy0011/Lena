@@ -238,26 +238,27 @@ const CourseDetails = () => {
                 <span className="font-medium">5 days</span> left at this price
               </p>
             </div>
-            <div className="flex gap-3 items-center pt-2">
-              <img
-                className="w-3.5"
-                src={assets.time_left_clock_icon}
-                alt="time left clock icon"
-              />
-              <p className="text-gray-800 md:text-4xl text-2xl font-semibold">
+            <div className="flex items-center gap-2 pt-2 flex-wrap">
+              <p className="text-gray-800 text-2xl md:text-3xl font-semibold">
                 {formatPrice(courseData.coursePrice - (courseData.discount * courseData.coursePrice) / 100)}
               </p>
-              <p className="md:text-lg text-gray-500 line-through">
+              <p className="text-sm md:text-base text-gray-400 line-through">
                 {formatPrice(courseData.coursePrice)}
               </p>
-              <p className="md:text-lg text-gray-500">
+              <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded">
                 {courseData.discount}% off
-              </p>
+              </span>
             </div>
             <div className="flex items-center text-sm md:text-default gap-4 p-2 md:pt-4 text-gray-500">
-              <div className="flex items-center gap-1">
-                <img src={assets.star} alt="" />
-                <p>{calculateRating(courseData)}</p>
+              <div className="flex items-center gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <img
+                    key={i}
+                    src={i < Math.floor(calculateRating(courseData)) ? assets.star : assets.star_blank}
+                    alt=""
+                    className="w-3.5 h-3.5"
+                  />
+                ))}
               </div>
               <div className="h-4 w-px bg-gray-500/40"></div>
               <div className="flex items-center gap-1">
