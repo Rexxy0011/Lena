@@ -56,3 +56,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Lena server running on http://localhost:${PORT}`));
+
+// Export for Vercel serverless
+export default app;
