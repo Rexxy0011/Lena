@@ -18,7 +18,7 @@ app.use(helmet());
 
 // CORS — allow requests from frontend (production + local dev)
 app.use(cors({
-  origin: [process.env.FRONTEND_URL, 'http://localhost:5173'].filter(Boolean),
+  origin: [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://localhost:5174'].filter(Boolean),
   credentials: true,
 }));
 
