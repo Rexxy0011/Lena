@@ -13,11 +13,8 @@ import educatorRoutes   from './routes/educatorRoutes.js';
 
 const app = express();
 
-// Security headers (relaxed for cross-origin API access)
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" },
-  crossOriginOpenerPolicy: false,
-}));
+// Security headers
+app.use(helmet());
 
 // CORS — allow requests from frontend (production + local dev)
 app.use(cors({
