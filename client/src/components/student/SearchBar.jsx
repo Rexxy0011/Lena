@@ -40,7 +40,7 @@ const SearchBar = ({ data, onQueryChange }) => {
 
       <button
         type="submit"
-        className="bg-[#4e91fd] rounded text-white md:px-10 px-7 md:py-2 mx-1"
+        className="bg-[#4e91fd] rounded text-white md:px-10 px-7 h-[calc(100%-6px)] mx-1"
       >
         Search
       </button>
