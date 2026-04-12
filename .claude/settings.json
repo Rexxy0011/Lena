@@ -5,7 +5,8 @@
       "Bash(node updatePrices.js)",
       "Bash(curl -s https://lena-server.vercel.app/api/courses)",
       "Bash(curl -s -I -X OPTIONS -H \"Origin: https://lena-one.vercel.app\" -H \"Access-Control-Request-Method: GET\" https://lena-server.vercel.app/api/courses)",
-      "Bash(curl -s -H \"Origin: https://lena-one.vercel.app\" https://lena-server.vercel.app/api/courses)"
+      "Bash(curl -s -H \"Origin: https://lena-one.vercel.app\" https://lena-server.vercel.app/api/courses)",
+      "Bash(curl -s https://lena-one.vercel.app/assets/index-DAhR4lhf.js)"
     ]
   }
 }
